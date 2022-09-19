@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+#title_box {	
+	width : 400px;
+	height : auto;
+	border : 2px solid rgb(11, 127, 173);
+}
+
+#content_box {	
+	width : 400px;
+	height : 300px;
+	border : 2px solid rgb(11, 127, 173);
+}
+
+.subbtn-wrapper {	
+	display : inline-block;
+}

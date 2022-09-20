@@ -1,5 +1,7 @@
 package com.springboot.react.qboard;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
@@ -9,17 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 
 @RestController
 @RequiredArgsConstructor
-
-
-
 @RequestMapping("/QnA")
-
-
 public class QBoardController {
 
 	
@@ -51,8 +49,7 @@ public class QBoardController {
 
 	@PostMapping("/insertProcess.do")
 	public void insert(QBoardVO vo) {
-		System.out.println("살려주시세요");
-		System.out.println("실행 안됐을ㅇ듯");
+		System.out.println("qBoardInsert 실행여부 확인");
 		qboardService.insert(vo);
 		
 	}
@@ -69,7 +66,6 @@ public class QBoardController {
 		  vo.setBtitle(RequestVo.getBtitle());
 		  vo.setBtext(RequestVo.getBtext());
 		  repository.save(vo);
-		
 	}
 
 	
@@ -84,6 +80,25 @@ public class QBoardController {
 		
 	}
 	
+	@PostMapping("/answer.do")
+	public void answer(QBoardVO reqQboardVO) {
+		System.out.println("qboardAnswer 실행확인");
+		System.out.println("qboardVO 데이터 : "+reqQboardVO);
+		
+		QBoardVO qboardVO = repository.findById(reqQboardVO.getBNum()).orElseThrow(()->{
+			System.out.println("else 오류 발생");
+			return null;
+		});
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		
+//		date.setMonth(11); 테스트용 setMonth
+		qboardVO.setBAnswerText(reqQboardVO.getBAnswerText());
+		qboardVO.setBregDate(date); // 답글 다는 날짜 갱신
+		
+		repository.save(qboardVO);
+	}
 
 
 }

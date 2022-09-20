@@ -95,7 +95,7 @@ public class QBoardController {
 		
 //		date.setMonth(11); 테스트용 setMonth
 		qboardVO.setBAnswerText(reqQboardVO.getBAnswerText());
-		qboardVO.setBregDate(date); // 답글 다는 날짜 갱신
+		qboardVO.setBAnswerRegdate(date); // 답글 다는 날짜 갱신
 		
 		repository.save(qboardVO);
 	}

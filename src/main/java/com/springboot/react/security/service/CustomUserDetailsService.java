@@ -21,20 +21,20 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private final MemberRepository memberRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String memEmail) throws UsernameNotFoundException {
-		System.out.println(memEmail + "@!@@@@@@@@2");
-		 return memberRepository.findByMemEmail(memEmail)
+	public UserDetails loadUserByUsername(String mememail) throws UsernameNotFoundException {
+		System.out.println(mememail + "@!@@@@@@@@2");
+		 return memberRepository.findByMememail(mememail)
 	                .map(this::createUserDetails)
-	                .orElseThrow(() -> new UsernameNotFoundException(memEmail + " 을 DB에서 찾을 수 없습니다"));
+	                .orElseThrow(() -> new UsernameNotFoundException(mememail + " 을 DB에서 찾을 수 없습니다"));
 	}
 	
 	private UserDetails createUserDetails(Member member) {
 		System.out.println("creatUserDtails 실행하냐!!!!!!!!!" + member);
-		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(member.getMemRole().toString());
+		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(member.getMemrole().toString());
 		
 		return new User(
-				String.valueOf(member.getMemNum()),
-				member.getMemPw(),
+				String.valueOf(member.getMemnum()),
+				member.getMempw(),
 				Collections.singleton(grantedAuthority)
 				);
 				

@@ -60,6 +60,8 @@ public class AuthService {
 		UsernamePasswordAuthenticationToken authenticationToken = requestDto.toAuthentication();
 		Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
 		System.out.println("로그인 성공?");
+		System.out.println("로그인시" + authentication);
+		System.out.println("로그인시 토큰이 뭐가 ㄷ담기나?" + authenticationToken);
 		return tokenProvider.generateTokenDto(authentication);
 	}
 }

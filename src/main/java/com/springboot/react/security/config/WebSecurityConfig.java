@@ -54,7 +54,7 @@ public class WebSecurityConfig {
 				// /auth/**는 로그인 페이지를 뜻한다.
 				.authorizeHttpRequests()
 				.antMatchers("/auth/**").permitAll()
-//				.anyRequest().authenticated()
+//	1			.anyRequest().authenticated()
 				// 모든 요청을 인증된 사용자만 접속할 수 있도록 함
 				.anyRequest().permitAll()
 				// 모든 요청을 모두에게 접속 허가함

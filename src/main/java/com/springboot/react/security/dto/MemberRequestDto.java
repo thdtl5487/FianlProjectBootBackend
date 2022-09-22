@@ -33,7 +33,9 @@ public class MemberRequestDto {
 	//Request를 받을 때 쓰이는 dto다. UsernamePasswordAuthenticationToken를 반환하여
 	//아이디와 비밀번호가 일치하는지 검증하는 로직을 넣을 수 있게 된다.
 	 public UsernamePasswordAuthenticationToken toAuthentication() {
-		 System.out.println("로그인성공 ");
+		 System.out.println("회원 확인");
+		 System.out.println("멤버 리퀘스트 " + mememail);
+		 System.out.println("멤버 리퀘스트 " + mempw);
 	        return new UsernamePasswordAuthenticationToken(mememail, mempw);
 	    }
 }

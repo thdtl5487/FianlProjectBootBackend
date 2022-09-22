@@ -38,19 +38,9 @@ public class QBoardVO{
 	@Column(columnDefinition = "date default sysdate", name = "BregDate")
     @Temporal(TemporalType.TIMESTAMP)
 	private Date BregDate;
-
 	
 	@Column(name = "Bwriter")
 	private String Bwriter;
-	
-	@Column(name = "BAnswerText", columnDefinition = "varchar2(2000) default null")
-	private String BAnswerText;
-	
-	@CreationTimestamp
-	@JsonFormat(pattern = "MM-dd hh:mm", timezone = "Asia/Seoul")
-	@Column(columnDefinition = "date default null", name = "BAnswerRegDate")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date BAnswerRegdate;
 
 
 	

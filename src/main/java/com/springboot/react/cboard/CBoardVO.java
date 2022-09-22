@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +26,7 @@ public class CBoardVO {
 	@Id	// PK 설정
 	@GeneratedValue
 	@Column(name = "BNum")	// @Column : 컬럼 이름
+//	@OneToMany(mappedBy = "BNum")
 	private Long BNum;
 	
 	@Column(name = "Btitle")
@@ -41,6 +43,10 @@ public class CBoardVO {
 	
 	@Column(name = "Bwriter")
 	private String Bwriter;
+	
+	
+	@Column(name = "fullName")
+	private String fullName;
 
 
 	

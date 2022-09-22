@@ -37,6 +37,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 				member.getPassword(),
 				Collections.singleton(grantedAuthority)
 				);
+				
+				
+		
 		}
 	}
 	

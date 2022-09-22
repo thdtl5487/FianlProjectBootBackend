@@ -35,8 +35,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto requestDto) {
-    	System.out.println(requestDto.getUserid() + "@@@@@@@@@@@@@@@@@");
-    	System.out.println(requestDto.getPassword() + "#################");
+    	System.out.println(requestDto.getMemEmail() + "@@@@@@@@@@@@@@@@@");
+    	System.out.println(requestDto.getMemPw() + "#################");
         return ResponseEntity.ok(authService.login(requestDto));
     } 
     
@@ -47,9 +47,9 @@ public class AuthController {
     	
     	System.out.println("유저정보 나옴? : " + TP.getAuthentication(userToken.getAccessToken()).getName());
     	
-    	Long memId = Long.parseLong(TP.getAuthentication(userToken.getAccessToken()).getName());
+    	Long memNum = Long.parseLong(TP.getAuthentication(userToken.getAccessToken()).getName());
     	
-    	Optional<Member> result = MR.findById(memId);
+    	Optional<Member> result = MR.findById(memNum);
     	
     	System.out.println(result);
     	

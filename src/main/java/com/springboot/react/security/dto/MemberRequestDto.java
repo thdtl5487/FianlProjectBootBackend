@@ -17,16 +17,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberRequestDto {
 	
-	private String userid;
-	private String password;
-	private String nickname;
+	private String memEmail;
+	private String memPw;
+	private String memNickname;
 	
 	 public Member toMember(PasswordEncoder passwordEncoder) {
 	        return Member.builder()
-	                .userid(userid)
-	                .password(passwordEncoder.encode(password))
-	                .nickname(nickname)
-	                .authority(Authority.ROLE_USER)
+	                .memEmail(memEmail)
+	                .memPw(passwordEncoder.encode(memPw))
+	                .memNickname(memNickname)
+	                .memRole(Authority.ROLE_USER)
 	                .build();
 	    }
 	
@@ -34,6 +34,6 @@ public class MemberRequestDto {
 	//아이디와 비밀번호가 일치하는지 검증하는 로직을 넣을 수 있게 된다.
 	 public UsernamePasswordAuthenticationToken toAuthentication() {
 		 System.out.println("로그인성공 ");
-	        return new UsernamePasswordAuthenticationToken(userid, password);
+	        return new UsernamePasswordAuthenticationToken(memEmail, memPw);
 	    }
 }

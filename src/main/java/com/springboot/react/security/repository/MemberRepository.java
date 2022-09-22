@@ -11,8 +11,8 @@ import com.springboot.react.security.model.Member;
 //@Repository라는 어노테이션이 없어도 IoC 됩니다. 이유는 JpaRepository를 상속했기 때문입니다.
 public interface MemberRepository extends JpaRepository<Member, Long>{
 	
-	Optional<Member> findByMemEmail (String memEmail);
-	boolean existsByMemEmail(String memEmail);
+	Optional<Member> findByMememail (String mememail);
+	boolean existsByMememail(String mememail);
 
 	//간단하게 JPARepository를 사용했다.
 	//email로 User를 찾는 로직과, userid가 존재하는가 판별하는 로직을 추가한다.

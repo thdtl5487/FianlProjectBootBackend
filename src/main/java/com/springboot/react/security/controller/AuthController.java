@@ -35,8 +35,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto requestDto) {
-    	System.out.println(requestDto.getMemEmail() + "@@@@@@@@@@@@@@@@@");
-    	System.out.println(requestDto.getMemPw() + "#################");
+    	System.out.println(requestDto.getMememail() + "@@@@@@@@@@@@@@@@@");
+    	System.out.println(requestDto.getMempw() + "#################");
         return ResponseEntity.ok(authService.login(requestDto));
     } 
     

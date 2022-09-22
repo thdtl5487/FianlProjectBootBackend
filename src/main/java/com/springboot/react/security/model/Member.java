@@ -31,41 +31,41 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "MemberTable")
+@Table(name = "Membertable")
 public class Member {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,	// 시퀀스 생성기를 통해 시퀀스를 만들고 ID에 자동으로 주입
 	generator = "seq_member")
-	private long memNum;
+	private long memnum;
 	
-	private String memEmail;
-	
-	@Column(nullable = false)
-	private String memPw;
+	private String mememail;
 	
 	@Column(nullable = false)
-	private String memNickname;
+	private String mempw;
+	
+	@Column(nullable = false)
+	private String memnickname;
 	
 	@Enumerated(EnumType.STRING)
-	private Authority memRole;
+	private Authority memrole;
 	
 	
-	public void setMemNickname(String memNickname) {
-		this.memNickname = memNickname;
+	public void setMemNickname(String memnickname) {
+		this.memnickname = memnickname;
 	}
 	
-	public void setMemPw(String memPw) {
-		this.memPw = memPw;
+	public void setMemPw(String mempw) {
+		this.mempw = mempw;
 	}
 	
 	@Builder
-	public Member(long memNum, String memEmail, String memPw, String memNickname, Authority memRole) {
-		this.memNum = memNum;
-		this.memEmail = memEmail;
-		this.memPw = memPw;
-		this.memNickname = memNickname;
-		this.memRole = memRole;
+	public Member(long memnum, String mememail, String mempw, String memnickname, Authority memrole) {
+		this.memnum = memnum;
+		this.mememail = mememail;
+		this.mempw = mempw;
+		this.memnickname = memnickname;
+		this.memrole = memrole;
 	}
 	
 	

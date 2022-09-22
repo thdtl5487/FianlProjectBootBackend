@@ -25,8 +25,6 @@ public class QBoardService {
 	public void insert(QBoardVO vo) {
 		qboardDAO.insert(vo);
 	}
-	
-	
  
    public ResponseEntity<Map> getPagingBoard(Integer pageNum){
 	   return qboardDAO.getPagingBoard(pageNum);
@@ -36,5 +34,7 @@ public class QBoardService {
 	   return qboardDAO.getBoard(bnum);
    }
 	
+   
+   
 	
 }

@@ -17,22 +17,23 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberRequestDto {
 	
-	private String userid;
-	private String password;
-	private String nickname;
+	private String memEmail;
+	private String memPw;
+	private String memNickname;
 	
 	 public Member toMember(PasswordEncoder passwordEncoder) {
 	        return Member.builder()
-	                .userid(userid)
-	                .password(passwordEncoder.encode(password))
-	                .nickname(nickname)
-	                .authority(Authority.ROLE_USER)
+	                .memEmail(memEmail)
+	                .memPw(passwordEncoder.encode(memPw))
+	                .memNickname(memNickname)
+	                .memRole(Authority.ROLE_USER)
 	                .build();
 	    }
 	
 	//Request를 받을 때 쓰이는 dto다. UsernamePasswordAuthenticationToken를 반환하여
 	//아이디와 비밀번호가 일치하는지 검증하는 로직을 넣을 수 있게 된다.
 	 public UsernamePasswordAuthenticationToken toAuthentication() {
-	        return new UsernamePasswordAuthenticationToken(userid, password);
+		 System.out.println("로그인성공 ");
+	        return new UsernamePasswordAuthenticationToken(memEmail, memPw);
 	    }
 }

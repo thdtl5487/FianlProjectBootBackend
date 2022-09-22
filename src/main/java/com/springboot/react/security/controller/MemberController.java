@@ -25,18 +25,18 @@ public class MemberController {
     @GetMapping("/me")
     public ResponseEntity<MemberResponseDto> getMyMemberInfo() {
         MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
-        System.out.println(myInfoBySecurity.getNickname());
+        System.out.println(myInfoBySecurity.getMemNickname());
         return ResponseEntity.ok((myInfoBySecurity));
         // return ResponseEntity.ok(memberService.getMyInfoBySecurity());
     }
 
     @PostMapping("/nickname")
     public ResponseEntity<MemberResponseDto> setMemberNickname(@RequestBody MemberRequestDto request) {
-        return ResponseEntity.ok(memberService.changeMemberNickname(request.getUserid(), request.getNickname()));
+        return ResponseEntity.ok(memberService.changeMemberNickname(request.getMemEmail(), request.getMemNickname()));
     }
 
     @PostMapping("/password")
     public ResponseEntity<MemberResponseDto> setMemberPassword(@RequestBody ChangePasswordRequestDto request) {
-        return ResponseEntity.ok(memberService.changeMemberPassword(request.getUserid(), request.getExpassword(), request.getNewpassword()));
+        return ResponseEntity.ok(memberService.changeMemberPassword(request.getMemEmail(), request.getExmemPw(), request.getNewmemPw()));
     }
 }

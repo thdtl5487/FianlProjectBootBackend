@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 //토큰의 값을 헤더에서 뽑거나 헤더에서 삽입할때 쓰는 dto다.
 public class MemberResponseDto {
 	
-	private String userid;
-	private String nickname;
+	private String memEmail;
+	private String memNickname;
 	
 	public static MemberResponseDto of(Member member) {
 		return MemberResponseDto.builder()
-				.userid(member.getUserid())
-				.nickname(member.getNickname())
+				.memEmail(member.getMemEmail())
+				.memNickname(member.getMemNickname())
 				.build();
 	}
 }

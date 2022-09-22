@@ -38,7 +38,7 @@ public class TokenProvider {
     private static final String BEARER_TYPE = "bearer";
     private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;
     private final Key key;
-
+	
     
     //@Value 어노테이션으로 yml에 있는 secret key를 가져온 
     //다음 이것을 decode한다  이후 의존성이 주입된 key의 값으로 정한다.
@@ -73,19 +73,11 @@ public class TokenProvider {
     			.signWith(key, SignatureAlgorithm.HS512)
     			.compact();
     	
-    	TokenDto myToken = new TokenDto();
-    	myToken.builder()
-		.grantType(BEARER_TYPE)
-		.accessToken(accessToken)
-		.tokenExpiresIn(tokenExpiresIn.getTime())
-		.build();
-    	
-    	
-    	System.out.println("TokenProvider여기까진 실행했나?ㅋㅋ");
-    	System.out.println(accessToken);
-    	System.out.println("TokenProvider에서 실행한 로그 : " + getAuthentication(accessToken));
-    	
-    	return myToken;
+    	return TokenDto.builder()
+    			.grantType(BEARER_TYPE)
+    			.accessToken(accessToken)
+    			.tokenExpiresIn(tokenExpiresIn.getTime())
+    			.build();
     	
     }
     
@@ -111,8 +103,6 @@ public class TokenProvider {
     			.collect(Collectors.toList());
     	
     	UserDetails principal = new User(claims.getSubject(), "", authorities);
-    	
-    	System.out.println(principal);
     	
     	return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     	

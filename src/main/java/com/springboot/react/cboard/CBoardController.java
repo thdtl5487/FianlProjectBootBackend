@@ -1,13 +1,23 @@
 package com.springboot.react.cboard;
 
+import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.springboot.react.cboard.upload.domain.CBoardAttachVO;
+import com.springboot.react.cboard.upload.domain.UploadResultDTO;
+
+import com.springboot.react.cboard.upload.service.UploadRepositoryInterface;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,10 +31,20 @@ import lombok.RequiredArgsConstructor;
 
 
 public class CBoardController {
+	
+	
+	 @Value("${com.example.upload.path}") // application.properties의 변수
+    private String uploadPath;
+	
+	
+   private final CBoardRepository cboardDAO;
+	   
+  
 
    // @RequiredArgsConstructor : private final이 붙은 필드의 생성자를 자동으로 추가해주고, @Autowired를 통해 주입도 자동으로 해주는 롬복 애노테이션
    private final CBoardService cboardService;
    private final CBoardRepositoryInterface repository;
+   private final UploadRepositoryInterface uRepository;
    
 
 //   @GetMapping("/getList.do")
@@ -56,77 +76,62 @@ public class CBoardController {
       return cboardService.getBoard(bnum);
    }
 
-//   @PutMapping("/view.do")
    
-   // 게시글 등록
-//   @PostMapping(value = "/insertProcess.do")
-//   public void insert(CBoardVO vo) {
-//      cboardService.insert(vo);
-//   }
    
-   // 아래 모든 메소드에 request.setAttribute("article", articleService.selectById(vo))를 해주는것과 같은 역할
-//   @ModelAttribute("cboard")
-//   public CBoardVO getArticle(CBoardVO vo) {
-//      return cboardService.selectById(vo);
-//   }
-//   
-//   @ModelAttribute("cboardList")
-//   public ResponseEntity<Map> getListForm(Integer pageNum){
-//      return cboardService.getPagingBoard(pageNum);
-//   }
-//   
-//   // 홈 화면
-//   @RequestMapping("/")
-//   public String home() {
-//      return "index";
-//   }
-//   
-//   // 게시글 등록 폼
-//   @GetMapping("/community/write.do")
-//   public String insertForm() {
-//      return "views/insertForm";
-//   }
-//   
+   
+   private String makeFolder() {
+
+       String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+
+       String folderPath = str.replace("/", File.separator);
+
+       File uploadPatheFolder = new File(uploadPath,folderPath);
+
+       if(uploadPatheFolder.exists() == false){
+           uploadPatheFolder.mkdirs();
+       }
+
+       return folderPath;
+   }
+   
+
+  
    // 게시글 등록
    @PostMapping("/insertProcess.do")
-   public void insert(CBoardVO vo) {
-      System.out.println("살려주시세요");
-      System.out.println("실행 안됐을ㅇ듯");
-      cboardService.insert(vo);
+   public void insert(CBoardVO vo, CBoardAttachVO cvo) {
+   
+      CBoardVO newVo = new CBoardVO();
+      CBoardAttachVO newCvo = new CBoardAttachVO();
+      
+      if(cvo.getUuid() != null) {
+      newCvo.setFolderPath(cvo.getFolderPath().replace('\\', '/'));
+      newCvo.setUuid(cvo.getUuid());
+      newCvo.setFileName(cvo.getFileName());
+      newCvo.setFullName(cvo.getFolderPath().replace('\\', '/') + "/s" + cvo.getUuid() + "_" + cvo.getFileName());
+      newVo.setFullName(newCvo.getFullName());
+      }
+      
+      
+      newVo.setBtitle(vo.getBtitle());
+      newVo.setBtext(vo.getBtext());
+      newVo.setBwriter(vo.getBwriter());
+      newVo.setBregDate(vo.getBregDate());
+      
+      repository.save(newVo);
+      
+      newCvo.setCANum(newVo.getBNum());
+      uRepository.save(newCvo);
+      
+      
+      
       
    }
    
-   // 게시글 조회
-//   @GetMapping("/read.do")
-//   public CBoardVO selectById(CBoardVO vo) {
-//      vo = cboardService.selectById(vo);
-//      System.out.println(vo);
-//      return vo;
-//      
-//   }
-   
-   // 게시글 수정 폼
-//   @PutMapping("/modify.do")
-//   public CBoardVO updateForm(int BNum) {
-//      cboardService.update(BNum, String Btitle, Btext, bwriter);
-//   }
-//   
-//   // 게시글 수정
-//   @PutMapping("/modify.do")
-//   public void update(@RequestBody CBoardVO Requestvo, Long BNum) {
-//        System.out.println("실행함?" + Requestvo.getBNum());
-//        CBoardVO  vo = repository.findById(BNum).orElseThrow(() -> {
-//              return new IllegalArgumentException("수정에 실패하였습니다.");
-//          });
-//        
-//        vo.setBtitle(Requestvo.getBtitle());
-//        vo.setBtext(Requestvo.getBtext());
-//        repository.save(vo);
-//      
-//   }
+
+
    
    @PostMapping("/modify.do")
-   public void update(CBoardVO Requestvo) {
+   public void update(CBoardVO Requestvo, CBoardAttachVO RequestCvo) {
         System.out.println("실행함?" + Requestvo.getBNum());
         CBoardVO  vo = repository.findById(Requestvo.getBNum()).orElseThrow(() -> {
               return new IllegalArgumentException("수정에 실패하였습니다.");
@@ -134,29 +139,32 @@ public class CBoardController {
         
         vo.setBtitle(Requestvo.getBtitle());
         vo.setBtext(Requestvo.getBtext());
+        
+        CBoardAttachVO cvo =  uRepository.findById(Requestvo.getBNum()).orElseThrow(() -> {
+        	return new IllegalArgumentException("수정에 실패했소다.");
+        });
+        
+        if(RequestCvo.getUuid() != null) {
+            cvo.setFolderPath(RequestCvo.getFolderPath().replace('\\', '/'));
+            cvo.setUuid(RequestCvo.getUuid());
+            cvo.setFileName(RequestCvo.getFileName());
+            cvo.setFullName(RequestCvo.getFolderPath().replace('\\', '/') + "/s" + cvo.getUuid() + "_" + cvo.getFileName());
+            vo.setFullName(cvo.getFullName());
+        }
+    
+        
         repository.save(vo);
+        uRepository.save(cvo);
       
    }
-//   
-//   // 게시글 삭제 폼
-//   @GetMapping("/community/delete.do")
-//   public String deleteForm() {
-//      return "views/deleteForm";
-//   }
-//   
+
    // 게시글 삭제
    @PostMapping("/delete.do")
    public void delete(CBoardVO vo) {
-      cboardService.delete(vo);
+	   cboardDAO.delete(vo);
       
    }
    
-//
-//   
-//   @GetMapping("/community/getList.do")
-//   public String getList(CBoardVO vo) {
-//      cboardService.getList(vo);
-//     return "views/getListForm";
-//   }
+
 
 }

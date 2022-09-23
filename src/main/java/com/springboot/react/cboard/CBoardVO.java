@@ -1,11 +1,18 @@
 package com.springboot.react.cboard;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -13,6 +20,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.springboot.react.cboard.reply.domain.CBoardReplyVO;
 
 import lombok.Data;
 
@@ -25,6 +33,7 @@ public class CBoardVO {
 	@Id	// PK 설정
 	@GeneratedValue
 	@Column(name = "BNum")	// @Column : 컬럼 이름
+//	@OneToMany(mappedBy = "BNum")
 	private Long BNum;
 	
 	@Column(name = "Btitle")
@@ -41,6 +50,14 @@ public class CBoardVO {
 	
 	@Column(name = "Bwriter")
 	private String Bwriter;
+	
+	
+	@Column(name = "fullName")
+	private String fullName;
+	
+//	@OneToMany(mappedBy = "cboard_BNum", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+//	@OrderBy("id asc") // 댓글 정렬
+//	private List<CBoardReplyVO> Reply = new ArrayList<CBoardReplyVO>();
 
 
 	

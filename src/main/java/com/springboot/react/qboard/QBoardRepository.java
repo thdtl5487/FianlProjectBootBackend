@@ -31,6 +31,7 @@ public class QBoardRepository{
 	private QBoardRepositoryInterface qboardRepository;
 
 	public void insert(QBoardVO vo) {
+		// em.persist : JPA를 통해 값을 입력할 때 활용합니다.
 		QBoardVO newVo = new QBoardVO();
 		
 		newVo.setBtitle(vo.getBtitle());
@@ -38,10 +39,13 @@ public class QBoardRepository{
 		newVo.setBwriter(vo.getBwriter());
 		newVo.setBregDate(vo.getBregDate());
 		
-		qboardRepository.save(newVo);
+		qboardRepository.save(newVo)		 					;
 	}
 	
 	
+
+
+	   
 	// 페이징된 게시물 리스트와 페이징 정보(현재 페이지, 최대 페이지 번호)를 HashMap 타입으로 저장하는 메소드
 	public ResponseEntity<Map> getPagingBoard(Integer pageNum){
 		Map<String, Object> result = null;

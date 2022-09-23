@@ -4,16 +4,21 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.react.cboard.reply.controller.ReplyRepositoryInterface;
+import com.springboot.react.cboard.reply.domain.CBoardReplyVO;
 import com.springboot.react.cboard.upload.domain.CBoardAttachVO;
 import com.springboot.react.cboard.upload.domain.UploadResultDTO;
 
@@ -32,6 +37,7 @@ import lombok.RequiredArgsConstructor;
 
 public class CBoardController {
 	
+	private final ReplyRepositoryInterface Rrepository;
 	
 	 @Value("${com.example.upload.path}") // application.properties의 변수
     private String uploadPath;
@@ -47,14 +53,7 @@ public class CBoardController {
    private final UploadRepositoryInterface uRepository;
    
 
-//   @GetMapping("/getList.do")
-//   public ResponseEntity<Map> viewCBoardList(@RequestParam(value = "pageNum", required = false)Integer pageNum){
-//      System.out.println("@@@viewCBoardList 실행@@@@");
-//      if(pageNum == null || pageNum <= 0) {
-//         pageNum = 1;
-//      }
-//      return cboardService.getPagingBoard(pageNum);
-//   }
+
 
    @GetMapping("/getList.do")
    public ResponseEntity<Map> viewCBoardList(@RequestParam(value = "pageNum", required = false)Integer pageNum){
@@ -164,6 +163,13 @@ public class CBoardController {
 	   cboardDAO.delete(vo);
       
    }
+   
+   @PostMapping("/deleteReply")
+	public void ReplyDelete(CBoardReplyVO reqVo) {
+	   System.out.println("머받음?"+reqVo);
+		Optional<CBoardReplyVO> cvo = Rrepository.findById(reqVo.getRNum());
+		Rrepository.deleteById(reqVo.getRNum());;
+	}
    
 
 

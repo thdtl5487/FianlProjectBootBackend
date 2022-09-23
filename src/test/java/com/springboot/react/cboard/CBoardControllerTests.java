@@ -43,10 +43,17 @@ public class CBoardControllerTests {
 	   vo.setBNum(28L);
 	   reply.setReply("테스트 댓글");
 	   reply.setReplyer("댓글테스터");
-	   reply.setCboard_BNum(vo);
+	   
 	   
 	   repl.save(reply);
 	   
+   }
+   @Test
+   public void ReplyDelete() {
+	   
+	   Optional<CBoardReplyVO> cvo = repl.findById(8L);
+	   
+	   repl.deleteById(8L);
    }
 
 //   @Test

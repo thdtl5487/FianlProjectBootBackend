@@ -26,7 +26,7 @@ public class MemberRequestDto {
 	                .mememail(mememail)
 	                .mempw(passwordEncoder.encode(mempw))
 	                .memnickname(memnickname)
-	                .memrole(Authority.ROLE_USER)
+	                .memrole(Authority.ROLE_MEMBER)
 	                .build();
 	    }
 	

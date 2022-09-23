@@ -2,9 +2,11 @@ package com.springboot.react.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -53,7 +55,8 @@ public class WebSecurityConfig {
 				// 모든 Requests에 있어서 /auth/**를 제외한 모든 uri의 request는 토큰이 필요하다. 
 				// /auth/**는 로그인 페이지를 뜻한다.
 				.authorizeHttpRequests()
-				.antMatchers("/auth/**").permitAll()
+				.antMatchers("/Notice/insertProcess","/Notice/modify","/Notice/delete")
+				.hasAnyAuthority("hasRole('ROLE_ADMIN')")
 //				.anyRequest().authenticated()
 				// 모든 요청을 인증된 사용자만 접속할 수 있도록 함
 				.anyRequest().permitAll()

@@ -12,6 +12,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Entity									
@@ -31,6 +33,7 @@ public class NBoardVO {
 	private String Btext;
 	
 	@CreationTimestamp
+	@JsonFormat(pattern = "MM-dd hh:mm", timezone = "Asia/Seoul")
 	@Column(columnDefinition = "date default sysdate", name = "BregDate")
     @Temporal(TemporalType.TIMESTAMP)
 	private Date BregDate;

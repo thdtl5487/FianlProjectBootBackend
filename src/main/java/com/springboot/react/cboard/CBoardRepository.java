@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import com.springboot.react.cboard.upload.domain.CBoardAttachVO;
-import com.springboot.react.cboard.upload.service.UploadRepositoryInterface;
+import com.springboot.react.cboard.upload.service.CUploadRepositoryInterface;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,7 +34,7 @@ public class CBoardRepository{
    private CBoardRepositoryInterface cboardRepository;
    
    @Autowired
-   private UploadRepositoryInterface uploadRepository;
+   private CUploadRepositoryInterface uploadRepository;
 
    public void insert(CBoardVO vo) {
       // em.persist : JPA를 통해 값을 입력할 때 활용합니다.
@@ -46,11 +46,6 @@ public class CBoardRepository{
       newVo.setBregDate(vo.getBregDate());
       newVo.setFullName(vo.getFullName());
       cboardRepository.save(newVo);
-      
-   
-      
-      
-      
       
    }
    

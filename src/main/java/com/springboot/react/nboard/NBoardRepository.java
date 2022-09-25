@@ -17,6 +17,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
+import com.springboot.react.nboard.upload.service.NUploadRepositoryInterface;
+
 import lombok.RequiredArgsConstructor;
 
 @Repository
@@ -29,6 +31,9 @@ public class NBoardRepository{
 
    @Autowired
    private NBoardRepositoryInterface nboardRepository;
+   
+   @Autowired
+   private NUploadRepositoryInterface uploadRepository;
 
    public void insert(NBoardVO vo) {
       // em.persist : JPA를 통해 값을 입력할 때 활용합니다.
@@ -37,8 +42,9 @@ public class NBoardRepository{
       newVo.setBtitle(vo.getBtitle());
       newVo.setBtext(vo.getBtext());
       newVo.setBregDate(vo.getBregDate());
+      newVo.setFilePath(vo.getFilePath());
       
-      nboardRepository.save(newVo)                      ;
+      nboardRepository.save(newVo);
    }
    
    public void update(NBoardVO vo) {

@@ -20,7 +20,7 @@ import com.springboot.react.cboard.CBoardVO;
 @Data
 @AllArgsConstructor
 
-public class UploadResultDTO {
+public class CUploadResultDTO {
 
 	@Id
 	private Long CANum;
@@ -36,40 +36,29 @@ public class UploadResultDTO {
 	private String fullName;
     
     
-    
-    
-
     public String getImageURL(){
         try {
-            return URLEncoder.encode(folderPath+"/" +uuid +fileName,"UTF-8");
+            return URLEncoder.encode(folderPath + "/" + uuid + "_" + fileName, "UTF-8");
 
         }catch (UnsupportedEncodingException e){
             e.printStackTrace();
+            return "";
         }
-        return "";
     }
-    
-    
-    
     
     public String getThumbnailURL(){
         try {
-            return URLEncoder.encode(folderPath + "/s_" +uuid + "_" +fileName,"UTF-8");
+            return URLEncoder.encode(folderPath + "/s_" + uuid + "_" + fileName, "UTF-8");
         }catch (UnsupportedEncodingException e){
             e.printStackTrace();
+            return "";
         }
-
-        return "";
     }
 
-
-
-
-	public UploadResultDTO(String fileName, String uuid, String folderPath) {
+	public CUploadResultDTO(String fileName, String uuid, String folderPath) {
 		this.fileName = fileName;
 		this.uuid = uuid;
 		this.folderPath = folderPath;
 	}
-    
     
 }

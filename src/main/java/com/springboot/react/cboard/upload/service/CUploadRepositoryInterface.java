@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.springboot.react.cboard.upload.domain.CBoardAttachVO;
 
 @Repository
-public interface UploadRepositoryInterface extends JpaRepository<CBoardAttachVO, Long>{
+public interface CUploadRepositoryInterface extends JpaRepository<CBoardAttachVO, Long>{
 	
 }

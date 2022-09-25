@@ -38,4 +38,7 @@ public class NBoardVO {
     @Temporal(TemporalType.TIMESTAMP)
 	private Date BregDate;
 	
+	@Column(name = "filePath")
+	private String filePath;
+	
 }

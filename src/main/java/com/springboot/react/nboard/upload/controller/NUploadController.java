@@ -1,4 +1,4 @@
-package com.springboot.react.cboard.upload.controller;
+package com.springboot.react.nboard.upload.controller;
 
 
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.springboot.react.cboard.upload.domain.UploadResultDTO;
+import com.springboot.react.cboard.upload.domain.CUploadResultDTO;
 
 import net.coobird.thumbnailator.Thumbnailator;
 
@@ -30,17 +30,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("CUpload")
+@RequestMapping("NUpload")
 @RestController
-public class UploadController {
+public class NUploadController {
 
-    @Value("${com.example.upload.path}") // application.properties의 변수
+    @Value("${com.notice.upload.path}") // application.properties의 변수
     private String uploadPath;
 
     @PostMapping("/uploadAjax")
-    public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles){
+    public ResponseEntity<List<CUploadResultDTO>> uploadFile(MultipartFile[] uploadFiles){
 
-        List<UploadResultDTO> resultDTOList = new ArrayList<>();
+        List<CUploadResultDTO> resultDTOList = new ArrayList<>();
         for (MultipartFile uploadFile : uploadFiles) {
 
             // 이미지 파일만 업로드 가능
@@ -49,12 +49,6 @@ public class UploadController {
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
             
-            
-
-
-            
-
-
             String originalName = uploadFile.getOriginalFilename();
 
             String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
@@ -70,26 +64,19 @@ public class UploadController {
 
             Path savePath = Paths.get(saveName);
 
-            
-            
-            
             try {
                 uploadFile.transferTo(savePath);// 실제 이미지 저장
-                resultDTOList.add(new UploadResultDTO(fileName,uuid,folderPath));
-                String thubmnailSaveName = uploadPath + File.separator + folderPath + File.separator +"s" + uuid + fileName;
-                File thumbnailFile = new File(thubmnailSaveName);
+                resultDTOList.add(new CUploadResultDTO(fileName, uuid, folderPath));
+                String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator + "s_" + uuid + "_" + fileName;
+                File thumbnailFile = new File(thumbnailSaveName);
                 
-                System.out.println("뭐찍힘?" + thumbnailFile);
-                
-                
-             
-                
+                System.out.println("thumbnailFile ===== " + thumbnailFile);
                 
                 // 섬네일 생성
-                Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,400,400);
+                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 400,400);
                 
                 
-            }catch (IOException e){
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }
@@ -115,20 +102,12 @@ public class UploadController {
     @GetMapping("/display")
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName) {
-		
-		
-		 	
 
-			String Fix = fileName.replace("_", "");
-			
-			System.out.println(fileName + "왜지");
-			System.out.println(Fix+"진짜 왜임 ㅋㅋ");
-	        
-	        File file = new File(uploadPath,Fix);
-	        
-	        
+		String Fix = fileName.replace("_", "");
 		
-		
+		System.out.println("getFile() param fileName ===== " + fileName);
+        
+        File file = new File(uploadPath, fileName);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -145,42 +124,41 @@ public class UploadController {
 	}
     
 	
-	 @PostMapping("/removeFile")
-	    public ResponseEntity<Boolean> removeFile(String fileName){
-	        String srcFileName = null;
-	        System.out.println("어디서 막 히는거임?");
-	        try {
-	        	
-	            srcFileName = URLDecoder.decode(fileName,"UTF-8");
-	            
-	            System.out.println("여기?" + srcFileName);
-	            
-	            File file = new File(uploadPath + File.separator + srcFileName);
-	            
-	            System.out.println("여긴가?" + file);
-	            
-	            
-	            
-	            boolean result = file.delete();
-	            
-	            System.out.println("너냐?" + result);
-
-	            File thumbnail = new File(file.getParent(),"s" + file.getName());
-	            
-	            System.out.println("얘 같은데 ㅋㅋ?" + file + "/구분/" + thumbnail);
-	            
-	            
-	            result = thumbnail.delete();
-	            
-	            System.out.println("진짜 모름" + result);
-
-	            return new ResponseEntity<>(result,HttpStatus.OK);
-
-	        }catch (UnsupportedEncodingException e){
-	            e.printStackTrace();
-	            return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
-	        }
+	@PostMapping("/removeFile")
+	public ResponseEntity<Boolean> removeFile(String fileName){
+		String srcFileName = null;
+		System.out.println("removeFile() param fileName ===== " + fileName);
+		try {
+			
+		    srcFileName = URLDecoder.decode(fileName, "UTF-8");
+		    
+		    System.out.println("srcFileName ===== " + srcFileName);
+		    
+		    File file = new File(uploadPath + File.separator + srcFileName);
+		    
+		    System.out.println("file ===== " + file);
+		    
+		    
+		    boolean result = file.delete();
+		    
+		    System.out.println("fiel.delete() result ===== " + result);
+		
+		    File thumbnail = new File(file.getParent(), "s_" + file.getName());
+		    
+		    System.out.println("thumbnail ===== " + thumbnail);
+		    
+		    
+		    result = thumbnail.delete();
+		    
+		    System.out.println("thumbnail.delete() result ===== " + result);
+		
+		    return new ResponseEntity<>(result,HttpStatus.OK);
+		
+	    } catch (UnsupportedEncodingException e){
+	        e.printStackTrace();
+	        return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
+	}
 	
     
 }

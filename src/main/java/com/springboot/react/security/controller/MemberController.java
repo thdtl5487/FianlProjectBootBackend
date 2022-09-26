@@ -37,6 +37,6 @@ public class MemberController {
 
     @PostMapping("/password")
     public ResponseEntity<MemberResponseDto> setMemberPassword(@RequestBody ChangePasswordRequestDto request) {
-        return ResponseEntity.ok(memberService.changeMemberPassword(request.getUserid(), request.getExpassword(), request.getNewpassword()));
+        return ResponseEntity.ok(memberService.changeMemberPassword(request.getMememail(), request.getExmempw(), request.getNewmempw()));
     }
 }

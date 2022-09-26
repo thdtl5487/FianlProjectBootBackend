@@ -15,8 +15,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @SequenceGenerator(
-        name="seq_member",		// 시퀀스 생성기의 이름을 지정
-        sequenceName="seq_member",	// 시퀀스의 이름을 지정 (IDX_SEQ)
+        name="IDX_SEQ_GEN",		// 시퀀스 생성기의 이름을 지정
+        sequenceName="IDX_SEQ",	// 시퀀스의 이름을 지정 (IDX_SEQ)
         initialValue=1,			// 시퀀스의 초기값을 설정
         allocationSize=1		// 시퀀스의 증가량을 설정
         )
@@ -31,41 +31,41 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "Membertable")
+@Table(name = "Member_Table")
 public class Member {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,	// 시퀀스 생성기를 통해 시퀀스를 만들고 ID에 자동으로 주입
-	generator = "seq_member")
-	private long memnum;
+	generator = "IDX_SEQ_GEN")
+	private long id;
 	
-	private String mememail;
-	
-	@Column(nullable = false)
-	private String mempw;
+	private String userid;
 	
 	@Column(nullable = false)
-	private String memnickname;
+	private String password;
+	
+	@Column(nullable = false)
+	private String nickname;
 	
 	@Enumerated(EnumType.STRING)
-	private Authority memrole;
+	private Authority authority;
 	
 	
-	public void setMemNickname(String memnickname) {
-		this.memnickname = memnickname;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
-	public void setMemPw(String mempw) {
-		this.mempw = mempw;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	@Builder
-	public Member(long memnum, String mememail, String mempw, String memnickname, Authority memrole) {
-		this.memnum = memnum;
-		this.mememail = mememail;
-		this.mempw = mempw;
-		this.memnickname = memnickname;
-		this.memrole = memrole;
+	public Member(long id, String userid, String password, String nickname, Authority authority) {
+		this.id = id;
+		this.userid = userid;
+		this.password = password;
+		this.nickname = nickname;
+		this.authority = authority;
 	}
 	
 	

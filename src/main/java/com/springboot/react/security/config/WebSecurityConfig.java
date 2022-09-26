@@ -59,6 +59,7 @@ public class WebSecurityConfig {
             .antMatchers("/Notice/getList.do","/Notice/view.do").permitAll()
             .antMatchers("/Notice/crudInsert").hasAuthority("hasRole('ROLE_ADMIN')")
             .antMatchers("/QnA/getList.do", "/QnA/view.do", "/QnA/insertProcess.do", "/QnA/answer.do").permitAll()
+            .antMatchers("/NUpload/**","/CUpload/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin()

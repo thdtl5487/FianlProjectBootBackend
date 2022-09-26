@@ -55,6 +55,10 @@ public class CBoardVO {
 	@Column(name = "fullName")
 	private String fullName;
 	
+    @Column(columnDefinition = "integer default 0", name = "Hits")    
+    private int Hits;
+
+	
 //	@OneToMany(mappedBy = "cboard_BNum", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 //	@OrderBy("id asc") // 댓글 정렬
 //	private List<CBoardReplyVO> Reply = new ArrayList<CBoardReplyVO>();

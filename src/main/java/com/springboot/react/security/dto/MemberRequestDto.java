@@ -20,13 +20,15 @@ public class MemberRequestDto {
 	private String mememail;
 	private String mempw;
 	private String memnickname;
+	private String accessToken;
+	
 	
 	 public Member toMember(PasswordEncoder passwordEncoder) {
 	        return Member.builder()
 	                .mememail(mememail)
 	                .mempw(passwordEncoder.encode(mempw))
 	                .memnickname(memnickname)
-	                .memrole(Authority.ROLE_USER)
+	                .memrole(Authority.ROLE_MEMBER)
 	                .build();
 	    }
 	

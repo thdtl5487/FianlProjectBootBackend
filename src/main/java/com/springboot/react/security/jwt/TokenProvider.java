@@ -55,10 +55,12 @@ public class TokenProvider {
     //현재시각과 만료시각을 만든 후 Jwts의 builder를 이용하여 Token을 생성한 
     //다음 TokenDto에 생성한 token의 정보를 넣는다.
     public TokenDto generateTokenDto(Authentication authentication) {
-    	
+    	System.out.println("generateTokenDto 실행함??");
     	String autorities = authentication.getAuthorities().stream()
     			.map(GrantedAuthority::getAuthority)
     			.collect(Collectors.joining(","));
+    	
+    	System.out.println("@@@@@@@autorities : " + autorities);
     	
     	long now = (new Date()).getTime();
     	
@@ -98,6 +100,8 @@ public class TokenProvider {
     	if(claims.get(AUTHORITIES_KEY) == null) {
     		throw new RuntimeException("권한 정보가 없는 토큰입니다");
     	}
+    	
+    	System.out.println("getAuthentication 매개변수 세개 들어가는 그거 실행함???");
     	
     	Collection<? extends GrantedAuthority> authorities = 
     			Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))

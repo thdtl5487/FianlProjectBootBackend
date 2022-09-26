@@ -1,6 +1,11 @@
 package com.springboot.react.security.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,8 +58,32 @@ public class AuthController {
     	
     	System.out.println(result);
     	
-    	
-    	
     	return ResponseEntity.ok(result);
     }
+    
+    @PostMapping("/loginCheck")
+    public ResponseEntity<Member> loginCheck(@RequestBody TokenDto token){
+    	
+    	System.out.println("로그인체크???"+token);
+    	
+    	System.out.println("액세스토큰잘받음???"+token.getAccessToken());
+    	
+    	System.out.println(Long.parseLong(TP.getAuthentication(token.getAccessToken()).getName()));
+    	
+		Long memNum = Long.parseLong(TP.getAuthentication(token.getAccessToken()).getName());
+		
+		Member result = MR.findByMemnum(memNum);
+		
+		System.out.println("zzzzzzzzzzzzzz"+result);
+		
+		return ResponseEntity.ok(result);
+    	
+//    	PrintWriter out = res.getWriter();
+//    	out.println("<script><alert>로그인 정보가 없어용</alert></script>");
+//    	out.println("<script>window.location.('/auth/LoginForm')</script>");
+//    	out.flush();
+//    	
+//    	return null;
+    }
+    
 }

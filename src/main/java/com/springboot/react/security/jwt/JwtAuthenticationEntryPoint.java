@@ -20,8 +20,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint{
 		
 		
 		response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-		System.out.println("느금");
-		response.sendRedirect("/");
 	}
 
 }

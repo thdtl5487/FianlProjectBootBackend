@@ -1,6 +1,7 @@
 package com.springboot.react.security.jwt;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,9 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler{
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		//필요한 권한이 없이 접근하려 할때 403	
+		
 		response.sendError(HttpServletResponse.SC_FORBIDDEN);
-			}
+		
+	}
 
 }

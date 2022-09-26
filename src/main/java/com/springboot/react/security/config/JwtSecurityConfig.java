@@ -1,8 +1,5 @@
 package com.springboot.react.security.config;
 
-import javax.servlet.Filter;
-
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
@@ -24,6 +21,8 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
 	@Override
 	public void configure(HttpSecurity http) {
 		JwtFilter customFilter = new JwtFilter(tokenProvider);
+		System.out.println("너 토큰값 받아? : " + customFilter);
+		System.out.println("넌 뭘 출력함? : " + http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class));
 		http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	

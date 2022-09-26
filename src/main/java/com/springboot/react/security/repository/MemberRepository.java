@@ -13,6 +13,8 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	
 	Optional<Member> findByMememail (String mememail);
 	boolean existsByMememail(String mememail);
+	
+	Member findByMemnum(Long memnum);
 
 	//간단하게 JPARepository를 사용했다.
 	//email로 User를 찾는 로직과, userid가 존재하는가 판별하는 로직을 추가한다.

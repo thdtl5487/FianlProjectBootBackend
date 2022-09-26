@@ -20,6 +20,8 @@ public class MemberRequestDto {
 	private String mememail;
 	private String mempw;
 	private String memnickname;
+	private String accessToken;
+	
 	
 	 public Member toMember(PasswordEncoder passwordEncoder) {
 	        return Member.builder()

@@ -60,7 +60,7 @@ public class CUploadController {
             String uuid = UUID.randomUUID().toString();
 
             //저장할 파일 이름 
-            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid  + fileName;
+            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
 
             Path savePath = Paths.get(saveName);
 
@@ -103,8 +103,6 @@ public class CUploadController {
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName) {
 
-		String Fix = fileName.replace("_", "");
-		
 		System.out.println("getFile() param fileName ===== " + fileName);
         
         File file = new File(uploadPath, fileName);

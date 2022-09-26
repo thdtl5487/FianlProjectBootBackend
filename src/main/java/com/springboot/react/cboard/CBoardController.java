@@ -130,7 +130,7 @@ public class CBoardController {
             cvo.setFolderPath(RequestCvo.getFolderPath().replace('\\', '/'));
             cvo.setUuid(RequestCvo.getUuid());
             cvo.setFileName(RequestCvo.getFileName());
-            cvo.setFullName(RequestCvo.getFolderPath().replace('\\', '/') + "/s" + cvo.getUuid() + "_" + cvo.getFileName());
+            cvo.setFullName(RequestCvo.getFolderPath().replace('\\', '/') + "/s_" + cvo.getUuid() + "_" + cvo.getFileName());
             vo.setFullName(cvo.getFullName());
         }
     

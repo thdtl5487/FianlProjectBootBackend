@@ -11,6 +11,4 @@ public interface QBoardRepositoryInterface extends JpaRepository<QBoardVO, Long>
 	
 	void delete(QBoardVO vo);
 	
-
-	
 }

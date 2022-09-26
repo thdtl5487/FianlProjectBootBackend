@@ -15,18 +15,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class QBoardService {
 	
-	
 	private final QBoardRepository qboardDAO;
-
-
-	
 
 	@Transactional
 	public void insert(QBoardVO vo) {
 		qboardDAO.insert(vo);
 	}
-	
-	
  
    public ResponseEntity<Map> getPagingBoard(Integer pageNum){
 	   return qboardDAO.getPagingBoard(pageNum);
@@ -35,6 +29,5 @@ public class QBoardService {
    public ResponseEntity<Map> getBoard(Long bnum){
 	   return qboardDAO.getBoard(bnum);
    }
-	
 	
 }

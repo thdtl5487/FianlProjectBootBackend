@@ -60,7 +60,7 @@ public class NUploadController {
             String uuid = UUID.randomUUID().toString();
 
             //저장할 파일 이름 
-            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid  + fileName;
+            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
 
             Path savePath = Paths.get(saveName);
 

@@ -36,7 +36,7 @@ public class WebSecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http	
 				//https만을 사용하기위해 httpBasic을 disable
-				
+				.httpBasic().disable()
 				//우리는 리액트에서 token을 localstorage에 저장할 것이기 때문에 csrf 방지또한 disable했다.
 				.csrf().disable()
 				//우리는 REST API를 통해 세션 없이 토큰을 주고받으며 데이터를 주고받기 때문에 세션설정또한 STATELESS로 설정했다.

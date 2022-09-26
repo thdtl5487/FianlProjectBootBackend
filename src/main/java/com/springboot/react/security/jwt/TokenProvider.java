@@ -72,8 +72,6 @@ public class TokenProvider {
     			.setExpiration(tokenExpiresIn)
     			.signWith(key, SignatureAlgorithm.HS512)
     			.compact();
-    	System.out.println("accsstoken " + accessToken);
-    	System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     	
     	return TokenDto.builder()
     			.grantType(BEARER_TYPE)
@@ -105,9 +103,6 @@ public class TokenProvider {
     			.collect(Collectors.toList());
     	
     	UserDetails principal = new User(claims.getSubject(), "", authorities);
-    	
-    	
-    	
     	
     	return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     	

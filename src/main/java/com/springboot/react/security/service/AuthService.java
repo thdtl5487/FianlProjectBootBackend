@@ -31,11 +31,11 @@ public class AuthService {
 	//signup 메소드는 평범하게 회원가입을 하는 메소드로, Spring Data JPA의 주요 로직으로 구성된다
 	public MemberResponseDto signup(MemberRequestDto requestDto) {
 		System.out.println("signup 시작");
-        if (memberRepository.existsByMememail(requestDto.getMememail())) {
-        	System.out.println("Userid 가지고옴? " + requestDto.getMememail());
+        if (memberRepository.existsByUserid(requestDto.getUserid())) {
+        	System.out.println("Userid 가지고옴? " + requestDto.getUserid());
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
         }
-        System.out.println("Userid 가지고옴?222222222 " + requestDto.getMememail());
+        System.out.println("Userid 가지고옴?222222222 " + requestDto.getUserid());
         
         Member member = requestDto.toMember(passwordEncoder);
         System.out.println(member +"맴버 만들어짐? ");
@@ -59,9 +59,6 @@ public class AuthService {
 	public TokenDto login(MemberRequestDto requestDto) {
 		UsernamePasswordAuthenticationToken authenticationToken = requestDto.toAuthentication();
 		Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
-		System.out.println("로그인 성공?");
-		System.out.println("로그인시" + authentication);
-		System.out.println("로그인시 토큰이 뭐가 ㄷ담기나?" + authenticationToken);
 		return tokenProvider.generateTokenDto(authentication);
 	}
 }

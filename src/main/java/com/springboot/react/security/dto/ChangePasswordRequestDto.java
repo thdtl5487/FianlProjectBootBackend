@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 //이전의 비밀번호가 제대로 입력하지 않는다면 실행되지 않는다.
 public class ChangePasswordRequestDto {
 	
-	private String mememail;
-	private String exmempw;
-	private String newmempw;
+	private String userid;
+	private String expassword;
+	private String newpassword;
 }

@@ -21,6 +21,8 @@ import lombok.Data;
 @Table(name = "CBoardTABLE") // 테이블 이름
 @Data		
 public class CBoardVO {
+	
+	
 
 	@Id	// PK 설정
 	@GeneratedValue
@@ -50,6 +52,10 @@ public class CBoardVO {
     @Column(columnDefinition = "integer default 0", name = "Hits")    
     private int Hits;
 
+    
+    @Column(columnDefinition = "integer default 0", name = "relies")
+    private int replies;
+    
 //	@OneToMany(mappedBy = "cboard_BNum", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 //	@OrderBy("id asc") // 댓글 정렬
 //	private List<CBoardReplyVO> Reply = new ArrayList<CBoardReplyVO>();

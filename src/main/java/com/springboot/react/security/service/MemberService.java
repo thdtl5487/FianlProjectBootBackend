@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.react.security.config.SecurityUtill;
-import com.springboot.react.security.dto.MemberRequestDto;
 import com.springboot.react.security.dto.MemberResponseDto;
 import com.springboot.react.security.model.Member;
 import com.springboot.react.security.repository.MemberRepository;

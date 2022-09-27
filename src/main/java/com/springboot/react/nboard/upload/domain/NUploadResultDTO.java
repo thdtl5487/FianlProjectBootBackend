@@ -31,25 +31,24 @@ public class NUploadResultDTO {
 	@Column(name = "fullName")
 	private String fullName;
   
-	
 	@Column(name = "Bnum")
     private Long Bnum;
     
 
-	 public String getImageURL(){
-        try {
-            return URLEncoder.encode(folderPath + "/" + uuid + "_" + fileName, "UTF-8");
+	public String getImageURL(){
+		try {
+			return URLEncoder.encode(folderPath + "/" + uuid + "_" + fileName, "UTF-8");
 
-        }catch (UnsupportedEncodingException e){
+		} catch (UnsupportedEncodingException e){
             e.printStackTrace();
             return "";
         }
-    }
+	}
     
-    public String getThumbnailURL(){
+	public String getThumbnailURL(){
         try {
-            return URLEncoder.encode(folderPath + "/s_" + uuid + "_" + fileName, "UTF-8");
-        }catch (UnsupportedEncodingException e){
+        	return URLEncoder.encode(folderPath + "/s_" + uuid + "_" + fileName, "UTF-8");
+        } catch (UnsupportedEncodingException e){
             e.printStackTrace();
             return "";
         }

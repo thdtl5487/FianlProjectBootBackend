@@ -1,11 +1,6 @@
 package com.springboot.react.security.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.Principal;
 import java.util.Optional;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

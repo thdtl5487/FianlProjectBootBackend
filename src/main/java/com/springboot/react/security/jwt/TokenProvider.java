@@ -4,12 +4,8 @@ import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import javax.swing.JComboBox.KeySelectionManager;
-
-import org.aspectj.weaver.Dump.INode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,8 +25,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.extern.log4j.Log4j;
-import sun.util.logging.resources.logging;
 
 @Component
 public class TokenProvider {

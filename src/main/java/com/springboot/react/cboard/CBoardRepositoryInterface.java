@@ -12,5 +12,4 @@ public interface CBoardRepositoryInterface extends JpaRepository<CBoardVO, Long>
 	@Query(value = "update CBoardTABLE set Hits = Hits + 1 where BNum = ?", nativeQuery = true )    
 	int updateHits(Long id);
 	
-	
 }

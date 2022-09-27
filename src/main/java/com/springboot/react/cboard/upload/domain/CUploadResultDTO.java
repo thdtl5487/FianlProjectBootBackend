@@ -1,20 +1,13 @@
 package com.springboot.react.cboard.upload.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
-import com.springboot.react.cboard.CBoardVO;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 
 @Data

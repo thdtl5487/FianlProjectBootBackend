@@ -82,7 +82,7 @@ public class CUploadController {
         }
 
         return new ResponseEntity<>(resultDTOList, HttpStatus.OK);
-    }
+	}
 
     private String makeFolder() {
 

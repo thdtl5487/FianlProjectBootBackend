@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.react.cboard.upload.domain.CBoardAttachVO;
 
-
 import lombok.RequiredArgsConstructor;
 
 @Service("cboardService")
@@ -17,10 +16,6 @@ public class CBoardService {
    
    // @RequiredArgsConstructor : private final이 붙은 필드의 생성자를 자동으로 추가해주고, @Autowired를 통해 주입도 자동으로 해주는 롬복 애노테이션
    private final CBoardRepository cboardDAO;
-   
-  
-
-
    
 //   public CBoardVO selectById(Integer bnum) {
 //      return cboardDAO.selectById(bnum);

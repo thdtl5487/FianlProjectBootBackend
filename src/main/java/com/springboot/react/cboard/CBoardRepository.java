@@ -17,9 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
-import com.springboot.react.cboard.upload.domain.CBoardAttachVO;
 import com.springboot.react.cboard.upload.service.CUploadRepositoryInterface;
-
 
 import lombok.RequiredArgsConstructor;
 
@@ -47,11 +45,6 @@ public class CBoardRepository{
       newVo.setBregDate(vo.getBregDate());
       newVo.setFullName(vo.getFullName());
       cboardRepository.save(newVo);
-      
-   
-      
-      
-      
       
    }
    

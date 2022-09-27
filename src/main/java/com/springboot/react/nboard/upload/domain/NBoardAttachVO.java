@@ -30,7 +30,6 @@ public class NBoardAttachVO {
 	@Column(name = "fullName")
 	private String fullName;
   
-  
 	@Column(name = "BNum")
 	private Long BNum;
 	  

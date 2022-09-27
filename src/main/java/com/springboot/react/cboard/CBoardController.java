@@ -59,12 +59,7 @@ public class CBoardController {
    
 	@GetMapping("/view.do")
 	public ResponseEntity<Map> viewCBoard(@RequestParam(value="bnum", required = false)Long bnum){
-	      
-		
-		
 		System.out.println("/view.do 테스트"+cboardService.getBoard(bnum));
-		
-		
       
 		return cboardService.getBoard(bnum);
 	}
@@ -89,7 +84,6 @@ public class CBoardController {
 
 		return folderPath;
 	}
-   
 
 	
 	@GetMapping("/updateHit")

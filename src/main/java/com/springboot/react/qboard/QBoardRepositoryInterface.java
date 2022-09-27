@@ -5,7 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 
 
 
-public interface QBoardRepositoryInterface extends JpaRepository<QBoardVO, Long>, CrudRepository<QBoardVO, Long>{
+public interface QBoardRepositoryInterface 
+	extends JpaRepository<QBoardVO, Long>, CrudRepository<QBoardVO, Long>{
    
 	QBoardVO save(QBoardVO vo);
 	

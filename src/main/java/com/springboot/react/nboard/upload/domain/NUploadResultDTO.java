@@ -25,9 +25,13 @@ public class NUploadResultDTO {
 	@Column(name = "folderPath")
     private String folderPath;
 	
+	@Column(name = "filePath")
+	private String filePath;
+    
 	@Column(name = "fullName")
 	private String fullName;
-    
+  
+	
 	@Column(name = "Bnum")
     private Long Bnum;
     

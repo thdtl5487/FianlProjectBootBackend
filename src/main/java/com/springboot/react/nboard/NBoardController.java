@@ -24,68 +24,68 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/Notice")
 
 public class NBoardController {
-	
-	@Value("${com.notice.upload.path}") // application.properties의 변수
-	private String uploadPath;
+   
+   @Value("${com.notice.upload.path}") // application.properties의 변수
+   private String uploadPath;
 
-	// @RequiredArgsConstructor : private final이 붙은 필드의 생성자를 자동으로 추가해주고, @Autowired를 통해 주입도 자동으로 해주는 롬복 애노테이션
-	private final NBoardService nboardService;
-	private final NBoardRepositoryInterface repository;
-	private final NUploadRepositoryInterface uRepository;
+   // @RequiredArgsConstructor : private final이 붙은 필드의 생성자를 자동으로 추가해주고, @Autowired를 통해 주입도 자동으로 해주는 롬복 애노테이션
+   private final NBoardService nboardService;
+   private final NBoardRepositoryInterface repository;
+   private final NUploadRepositoryInterface uRepository;
   
 
-	@GetMapping("/getList.do")
-	public ResponseEntity<Map> viewNBoardList(@RequestParam(value = "pageNum", required = false)Integer pageNum){
-		if(pageNum == null || pageNum <= 0) {
-			pageNum = 0;
-		}
-		return nboardService.getPagingBoard(pageNum);
-	}
+   @GetMapping("/getList.do")
+   public ResponseEntity<Map> viewNBoardList(@RequestParam(value = "pageNum", required = false)Integer pageNum){
+      if(pageNum == null || pageNum <= 0) {
+         pageNum = 0;
+      }
+      return nboardService.getPagingBoard(pageNum);
+   }
 
    
-	@GetMapping("/view.do")
-	public ResponseEntity<Map> viewNBoard(@RequestParam(value="bnum", required = false)Long bnum){
+   @GetMapping("/view.do")
+   public ResponseEntity<Map> viewNBoard(@RequestParam(value="bnum", required = false)Long bnum){
       
-		return nboardService.getBoard(bnum);
-	}
+      return nboardService.getBoard(bnum);
+   }
 
 
-	// 게시글 등록
-	@PostMapping("/insertProcess.do")
-	public void insert(NBoardVO vo, NBoardAttachVO nvo) {
-		NBoardVO newVo = new NBoardVO();
-		NBoardAttachVO newNvo = new NBoardAttachVO();
+   // 게시글 등록
+   @PostMapping("/insertProcess.do")
+   public void insert(NBoardVO vo, NBoardAttachVO nvo) {
+      NBoardVO newVo = new NBoardVO();
+      NBoardAttachVO newNvo = new NBoardAttachVO();
   
-		if(nvo.getUuid() != null) {
-			newNvo.setFolderPath(nvo.getFolderPath().replace('\\', '/'));
-			newNvo.setUuid(nvo.getUuid());
-			newNvo.setFileName(nvo.getFileName());
-			newNvo.setFullName(nvo.getFolderPath().replace('\\', '/') + "/s_" + nvo.getUuid() + "_" + nvo.getFileName());
-			newVo.setFilePath(newNvo.getFullName());
-		}
+      if(nvo.getUuid() != null) {
+         newNvo.setFolderPath(nvo.getFolderPath().replace('\\', '/'));
+         newNvo.setUuid(nvo.getUuid());
+         newNvo.setFileName(nvo.getFileName());
+         newNvo.setFullName(nvo.getFolderPath().replace('\\', '/') + "/s_" + nvo.getUuid() + "_" + nvo.getFileName());
+         newVo.setFilePath(newNvo.getFullName());
+      }
   
-		newVo.setBtitle(vo.getBtitle());
-		newVo.setBtext(vo.getBtext());
-		newVo.setBregDate(vo.getBregDate());
+      newVo.setBtitle(vo.getBtitle());
+      newVo.setBtext(vo.getBtext());
+      newVo.setBregDate(vo.getBregDate());
   
-		repository.save(newVo);
+      repository.save(newVo);
   
-		newNvo.setNANum(newVo.getBNum());
-		uRepository.save(newNvo);
-	}
+      newNvo.setNANum(newVo.getBNum());
+      uRepository.save(newNvo);
+   }
    
    
-	@PostMapping("/modify.do")
-	public void update(NBoardVO Requestvo, NBoardAttachVO RequestNvo) {
-		NBoardVO  vo = repository.findById(Requestvo.getBNum()).orElseThrow(() -> {
-			return new IllegalArgumentException("수정에 실패하였습니다.");
-		});
+   @PostMapping("/modify.do")
+   public void update(NBoardVO Requestvo, NBoardAttachVO RequestNvo) {
+      NBoardVO  vo = repository.findById(Requestvo.getBNum()).orElseThrow(() -> {
+         return new IllegalArgumentException("수정에 실패하였습니다.");
+      });
         
-		vo.setBtitle(Requestvo.getBtitle());
+      vo.setBtitle(Requestvo.getBtitle());
         vo.setBtext(Requestvo.getBtext());
         
         NBoardAttachVO nvo =  uRepository.findById(Requestvo.getBNum()).orElseThrow(() -> {
-        	return new IllegalArgumentException("이미지 수정에 실패하였습니다.");
+           return new IllegalArgumentException("이미지 수정에 실패하였습니다.");
         });
         
         if(RequestNvo.getUuid() != null) {
@@ -99,28 +99,28 @@ public class NBoardController {
         repository.save(vo);
         uRepository.save(nvo);
       
-	}
+   }
 
-	// 게시글 삭제
-	@PostMapping("/delete.do")
-	public void delete(NBoardVO vo) {
-		nboardService.delete(vo);
+   // 게시글 삭제
+   @PostMapping("/delete.do")
+   public void delete(NBoardVO vo) {
+      nboardService.delete(vo);
       
-	}
+   }
    
 
-	private String makeFolder() {
+   private String makeFolder() {
 
-		String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-		
-		String folderPath = str.replace("/", File.separator);
-		
-		File uploadPatheFolder = new File(uploadPath,folderPath);
-		
-		if(uploadPatheFolder.exists() == false){
-			uploadPatheFolder.mkdirs();
-		}
-		
-		return folderPath;
-	}
+      String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+      
+      String folderPath = str.replace("/", File.separator);
+      
+      File uploadPatheFolder = new File(uploadPath,folderPath);
+      
+      if(uploadPatheFolder.exists() == false){
+         uploadPatheFolder.mkdirs();
+      }
+      
+      return folderPath;
+   }
 }

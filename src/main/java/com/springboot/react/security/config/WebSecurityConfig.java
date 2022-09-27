@@ -58,16 +58,12 @@ public class WebSecurityConfig {
             .antMatchers("/auth/**").permitAll()
             .antMatchers("/Notice/getList.do","/Notice/view.do").permitAll()
             .antMatchers("/Notice/crudInsert").hasAuthority("hasRole('ROLE_ADMIN')")
-            .antMatchers("/QnA/getList.do", "/QnA/view.do", "/QnA/insertProcess.do", "/QnA/answer.do").permitAll()
+            .antMatchers("/QnA/getList.do", "/QnA/view.do", "/QnA/insertProcess.do", "/QnA/answer.do", "/Community/**","/CReply/**","/CUpload/**").permitAll()
             .antMatchers("/NUpload/**","/CUpload/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin()
             .loginPage("/LoginForm")
-            // 모든 요청을 인증된 사용자만 접속할 수 있도록 함
-//            .anyRequest().permitAll()
-            // 모든 요청을 모두에게 접속 허가함
-            
             .and()
             //마지막으로 전에 설정한 JwtSecurityConfig클래스를 통해 tokenProvider를 적용시킨다.
             .apply(new JwtSecurityConfig(tokenProvider));

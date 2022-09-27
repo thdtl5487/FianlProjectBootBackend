@@ -53,7 +53,7 @@ public class CBoardVO {
     private int Hits;
 
     
-    @Column(columnDefinition = "integer default 0", name = "relies")
+    @Column(columnDefinition = "integer default 0", name = "replies")
     private int replies;
     
 //	@OneToMany(mappedBy = "cboard_BNum", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)

@@ -15,7 +15,9 @@ public interface CBoardRepositoryInterface extends JpaRepository<CBoardVO, Long>
 	@Query(value = "update CBoardTABLE set Hits = Hits+1 where BNum = ?", nativeQuery = true )    
 	int updateHits(Long id);
 	
-	@Query(value = "select COUNT(*) from cboard_reply where BNum = ?", nativeQuery = true)
+	@Transactional
+	@Modifying
+	@Query(value = "update cboardtable c SET c.replies = (select count(*)from cboard_reply r where r.bnum= c.bnum) where c.bnum=? ", nativeQuery = true)
 	int replyCounts(Long id);
 	
 }

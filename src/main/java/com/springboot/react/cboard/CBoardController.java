@@ -62,6 +62,13 @@ public class CBoardController {
 	public ResponseEntity<Map> viewCBoard(@RequestParam(value="bnum", required = false)Long bnum){
 		System.out.println("/view.do 테스트"+cboardService.getBoard(bnum));
 		repository.updateHits(bnum);
+		try {
+			repository.replyCounts(bnum);
+		} catch (Exception e) {
+			System.out.println("댓글 수 읽고싶어 응애" + e.getMessage());
+			e.printStackTrace();
+		}
+		
 		return cboardService.getBoard(bnum);
 		
 		
@@ -89,10 +96,7 @@ public class CBoardController {
 	}
 
 	
-	@GetMapping("/updateHit")
-	public void updateHit(Long bnum) {
-		repository.updateHits(bnum);
-	}
+	
   
 	// 게시글 등록
 	@PostMapping("/insertProcess.do")

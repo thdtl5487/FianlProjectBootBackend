@@ -99,7 +99,7 @@ public class NBoardController {
         repository.save(vo);
         uRepository.save(nvo);
       
-   }
+	}
 
 	// 게시글 삭제
 	@PostMapping("/delete.do")

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.springboot.react.cboard.upload.domain.CUploadResultDTO;
+import com.springboot.react.nboard.upload.domain.NUploadResultDTO;
 
 import net.coobird.thumbnailator.Thumbnailator;
 
@@ -38,9 +38,9 @@ public class NUploadController {
     private String uploadPath;
 
     @PostMapping("/uploadAjax")
-    public ResponseEntity<List<CUploadResultDTO>> uploadFile(MultipartFile[] uploadFiles){
+    public ResponseEntity<List<NUploadResultDTO>> uploadFile(MultipartFile[] uploadFiles){
 
-        List<CUploadResultDTO> resultDTOList = new ArrayList<>();
+        List<NUploadResultDTO> resultDTOList = new ArrayList<>();
         for (MultipartFile uploadFile : uploadFiles) {
 
             // 이미지 파일만 업로드 가능
@@ -66,7 +66,7 @@ public class NUploadController {
 
             try {
                 uploadFile.transferTo(savePath);// 실제 이미지 저장
-                resultDTOList.add(new CUploadResultDTO(fileName, uuid, folderPath));
+                resultDTOList.add(new NUploadResultDTO(fileName, uuid, folderPath));
                 String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator + "s_" + uuid + "_" + fileName;
                 File thumbnailFile = new File(thumbnailSaveName);
                 

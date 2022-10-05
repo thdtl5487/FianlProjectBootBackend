@@ -133,7 +133,7 @@ public class TokenProvider {
     private Claims parseCalims(String accesToken) {
     	try {
     		return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accesToken).getBody();
-    	}catch (ExpiredJwtException e) {
+    	} catch (ExpiredJwtException e) {
     		return e.getClaims();
     	}
     }

@@ -56,7 +56,7 @@ public class WebSecurityConfig {
             .antMatchers("/auth/**").permitAll()
             .antMatchers("/Notice/getList.do","/Notice/view.do").permitAll()
             .antMatchers("/Notice/crudInsert").hasAuthority("hasRole('ROLE_ADMIN')")
-            .antMatchers("/QnA/getList.do", "/QnA/view.do", "/QnA/insertProcess.do", "/QnA/answer.do", "/Community/**","/CReply/**","/CUpload/**").permitAll()
+            .antMatchers("/QnA/getList.do", "/QnA/view.do", "/QnA/insertProcess.do", "/QnA/answer.do", "/Community/**","/CReply/**").permitAll()
             .antMatchers("/NUpload/**","/CUpload/**").permitAll()
             .anyRequest().authenticated()
             .and()

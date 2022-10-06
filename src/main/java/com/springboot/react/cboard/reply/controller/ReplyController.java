@@ -54,6 +54,7 @@ public class ReplyController{
 	public void ReplyDelete(CBoardReplyVO reqVo) {
 		System.out.println("머받음?"+reqVo);
 		Optional<CBoardReplyVO> cvo = repository.findById(reqVo.getRNum());
+		System.out.println("이거 잘 받고 있나?" + reqVo.getReplyer());
 		repository.deleteById(reqVo.getRNum());;
 	}
 	
@@ -68,14 +69,12 @@ public class ReplyController{
 	
 	@GetMapping("/ReplyRead")
 	public ResponseEntity<Map> viewReply(@RequestParam(value = "bnum", required = false) Long bnum){
-		
 		return replyRes.getReply(bnum);
 	}
 	
 	@GetMapping("/Reply")
-	public List<CBoardReplyVO> readReply(Long BNum){
-		
-		System.out.println("이거 실행 하나요?" + repository.findByBNum(BNum));
+	public List<CBoardReplyVO> readReply(Long BNum){		
+		System.out.println("/Reply 실행" + repository.findByBNum(BNum));
 		return repository.findByBNum(BNum);
 		
 	}

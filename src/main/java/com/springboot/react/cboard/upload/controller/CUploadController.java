@@ -65,11 +65,11 @@ public class CUploadController {
             Path savePath = Paths.get(saveName);
 
             try {
-                uploadFile.transferTo(savePath);// 실제 이미지 저장
+            	uploadFile.transferTo(savePath);// 실제 이미지 저장
                 resultDTOList.add(new CUploadResultDTO(fileName, uuid, folderPath));
                 String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator + "s_" + uuid + "_" + fileName;
                 File thumbnailFile = new File(thumbnailSaveName);
-                
+               
                 System.out.println("thumbnailFile ===== " + thumbnailFile);
                 
                 // 섬네일 생성

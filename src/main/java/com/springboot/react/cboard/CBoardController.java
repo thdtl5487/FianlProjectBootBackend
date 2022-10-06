@@ -47,7 +47,7 @@ public class CBoardController {
 
 	@GetMapping("/getList.do")
 	public ResponseEntity<Map> viewCBoardList(@RequestParam(value = "pageNum", required = false)Integer pageNum){
-		System.out.println("@@@viewCBoardList 실행@@@@");
+		System.out.println("viewCBoardList");
 		if(pageNum == null || pageNum <= 0) {
 			pageNum = 0;
 		}
@@ -79,21 +79,21 @@ public class CBoardController {
 	
    
    
-   
-	private String makeFolder() {
-
-		String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-
-		String folderPath = str.replace("/", File.separator);
-
-		File uploadPatheFolder = new File(uploadPath,folderPath);
-
-		if(uploadPatheFolder.exists() == false){
-			uploadPatheFolder.mkdirs();
-		}
-
-		return folderPath;
-	}
+//   
+//	private String makeFolder() {
+//
+//		String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+//
+//		String folderPath = str.replace("/", File.separator);
+//
+//		File uploadPatheFolder = new File(uploadPath,folderPath);
+//
+//		if(uploadPatheFolder.exists() == false){
+//			uploadPatheFolder.mkdirs();
+//		}
+//
+//		return folderPath;
+//	}
 
 	
 	

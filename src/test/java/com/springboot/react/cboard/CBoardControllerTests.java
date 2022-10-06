@@ -2,15 +2,22 @@ package com.springboot.react.cboard;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.springboot.react.cboard.reply.controller.ReplyRepositoryInterface;
@@ -22,6 +29,10 @@ import com.springboot.react.cboard.reply.domain.CBoardReplyVO;
 @SpringBootTest
 public class CBoardControllerTests {
    
+	@Autowired
+	@Value("${com.community.upload.path}") // application.properties의 변수
+	private String uploadPath;
+	
 	
    @Autowired
    private CBoardService cboardService;
@@ -107,5 +118,41 @@ public class CBoardControllerTests {
 //      Optional<CBoardVO> vo = repository.findById(3L);
 //      repository.deleteById(3L);
 //   }
+   
+   
+   private String makeFolder() {
+
+       String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+
+       String folderPath = str.replace("/", File.separator);
+
+       File uploadPatheFolder = new File(uploadPath,folderPath);
+
+       if(uploadPatheFolder.exists() == false){
+           uploadPatheFolder.mkdirs();
+       }
+
+       return folderPath;
+   }
+   
+   @Test
+   public void uploadtest() {
+	   
+	   
+	   // 이미지 파일만 업로드 가능
+     
+           // 이미지가 아닌경우 403 Forbidden 반환
+          
+       
+       String originalName = "TestImage.jpg";
+	   
+	   String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
+	 
+       String folderPath = makeFolder();
+      
+       String uuid = UUID.randomUUID().toString();
+       
+       String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
+   }
 
 }

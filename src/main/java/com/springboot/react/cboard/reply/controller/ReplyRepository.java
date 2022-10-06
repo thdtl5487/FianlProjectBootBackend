@@ -50,15 +50,11 @@ public class ReplyRepository {
 	
 	public ResponseEntity<Map> getReply(Long bnum){
 		Map<String, Object> result = null;
-		System.out.println("댓글 보여줘");
 		List<CBoardReplyVO> getReply = null;
 		getReply = repository.findByBNum(bnum);
-		System.out.println("댓글 응애");
-		
 		result = new HashMap<String, Object>();
 		result.put("reply", getReply);
-		System.out.println("댓글 가져옴?" + result.get("reply"));
-		
+		System.out.println("댓글 가져오는지 확인" + result.get("reply"));
 		return ResponseEntity.ok(result);
 	}
 

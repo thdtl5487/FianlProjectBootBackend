@@ -57,7 +57,6 @@ public class QBoardRepository{
 			boardList = pageList.getContent(); // pageList의 내용을 boardList에 저장
 		}
 		// 리스트 페이징 저장 끝 boardList 값 리턴하면 됨.
-		
 		// 2. 페이지 정보
 		HashMap<String, Object> pageInfo = new HashMap<String, Object>();
 		int currentPage = pageList.getNumber(); // 현재 페이지값 저장, getNumber는 Page 타입의 내장 메소드
@@ -70,7 +69,6 @@ public class QBoardRepository{
 		result = new HashMap<String, Object>();
 		result.put("list", boardList); // 페이징된 게시물 리스트를 List라는 key에 저장
 		result.put("pageInfo", pageInfo); // 페이징 정보를 pageInfo라는 key에 저장
-		
 		
 		return ResponseEntity.ok(result);
 	}

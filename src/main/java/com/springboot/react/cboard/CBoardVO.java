@@ -33,7 +33,7 @@ public class CBoardVO {
 	@Column(name = "Btitle")
 	private String Btitle;
 	
-	@Column(name = "Btext")
+	@Column(name = "Btext", length = 2295)
 	private String Btext;
 	
 	@CreationTimestamp

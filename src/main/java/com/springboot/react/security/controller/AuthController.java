@@ -59,26 +59,10 @@ public class AuthController {
     @PostMapping("/loginCheck")
     public ResponseEntity<Member> loginCheck(@RequestBody TokenDto token){
     	
-    	System.out.println("로그인체크???"+token);
-    	
-    	System.out.println("액세스토큰잘받음???"+token.getAccessToken());
-    	
-    	System.out.println(Long.parseLong(TP.getAuthentication(token.getAccessToken()).getName()));
-    	
 		Long memNum = Long.parseLong(TP.getAuthentication(token.getAccessToken()).getName());
 		
 		Member result = MR.findByMemnum(memNum);
 		
-		System.out.println("zzzzzzzzzzzzzz"+result);
-		
 		return ResponseEntity.ok(result);
-    	
-//    	PrintWriter out = res.getWriter();
-//    	out.println("<script><alert>로그인 정보가 없어용</alert></script>");
-//    	out.println("<script>window.location.('/auth/LoginForm')</script>");
-//    	out.flush();
-//    	
-//    	return null;
     }
-    
 }
